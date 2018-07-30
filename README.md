@@ -1,10 +1,14 @@
 ## Teenager Klaxon
 
-Insipred by [http://www.jameswest.site/the-tea-time-klaxon](http://www.jameswest.site/the-tea-time-klaxon)
+Inspired by [http://www.jameswest.site/the-tea-time-klaxon](http://www.jameswest.site/the-tea-time-klaxon)
+
+![Towerlight](towerlight.jpg)
 
 This is an alternative software package for the Tower Light tutorial in MagPi #73. Full details of how to build the project can be found at [https://raspberrypi.org/magpi](https://raspberrypi.org/magpi) (free PDF download).
 
 In the original tutorial, a very basic web server was implemented. This version has a few more features and an improved interface. It works well on mobile devices and can be installed as a web app on iOS.
+
+![Web Page](webpage.png)
 
 ### Features
 
