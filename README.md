@@ -22,7 +22,7 @@ In the original tutorial, a very basic web server was implemented. This version 
 
 In the original tutorial, we did not wire up the buzzer. This software makes use of it. To add the buzzer:
 
-* Secure a sheilded wire between the Automation pHAT ground and the the relay COM (Common)
+* Secure a shielded wire between the Automation pHAT ground and the the relay COM (Common)
 * Connect the buzzer wire (orange in my case) to NO (Normally Open) on the relay
 
 The buzzer is _very_ loud, so the software implements a one-second cutoff for the sake of everyone's sanity.
@@ -94,7 +94,7 @@ The lights should cycle as before. Now the server will start whenever the Pi is 
 
 ### Usage
 
-Just point a web browser to http://_ip-or-hostname-of-your-pi_:5000/ to see a simple web page that allows you to control the lights, including the ability to shut everything off and also shutdown the system.
+Just point a web browser to http://_ip-or-hostname-of-your-pi_:5000/ to see a simple web page that allows you to control the lights, including the ability to shut everything off and also shutdown the system. Lights will automatically go out after one minute, the buzzer after one second.
 
 It's designed to work well on mobile devices. If you use Safari on iOS, you can 'Add To Home Screen' to create an icon on your phone to go right to the app.
 
