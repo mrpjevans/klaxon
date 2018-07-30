@@ -55,7 +55,7 @@ python ~/klaxon/klaxon.py
 
 If all is well after a second or two the lights on the tower will cycle. You should now be able to go to http://_address-of-tower-light_:5000/
 
-Ctrl+C will shut things down.
+`Ctrl+C` will shut things down.
 
 ### Run As a Service
 
