@@ -1,5 +1,6 @@
 import os
-import time, random
+import time
+import random
 from threading import Thread
 from flask import Flask, render_template, jsonify
 
@@ -7,33 +8,37 @@ app = Flask(__name__)
 
 topThreadId = 0
 
+
 # What are we running on?
 isRPi = False
 if os.uname()[4][:3] == 'arm':
-    import automationhat #pylint: disable=all
+    import automationhat  # pylint: disable=all
     isRPi = True
 
-# Switch on one of the three lights (with a seonsible timeout)
+
+# Switch on one of the three lights (with a sensible timeout)
 def switchOnLight(outputId):
     if isRPi:
         automationhat.output[outputId].on()
-        t = Thread(target=timeout, args=(60,))
+        t = Thread(target=timeout, args=(10,))
         t.start()
+
 
 # Disco mode!
 def discoMode():
     global topThreadId
     myId = time.time()
     topThreadId = myId
-    for i in range(200):
+    for i in range(20):
         if topThreadId == myId:
-            outputId = random.randint(0,2)
+            outputId = random.randint(0, 2)
             mapping = ['one', 'two', 'three']
             automationhat.output[mapping[outputId]].on()
             time.sleep(0.1)
             automationhat.output[mapping[outputId]].off()
-        
-# Switch everything off after three seconds
+
+
+# Switch everything off after n seconds
 # topThreadId allows only the newest thread to switch everything off
 def timeout(duration):
     global topThreadId
@@ -42,6 +47,7 @@ def timeout(duration):
     time.sleep(duration)
     if topThreadId == myId:
         allOff()
+
 
 # This function runs every time a request is received before routing.
 # We switch off all the lights here.
@@ -53,10 +59,12 @@ def allOff():
         automationhat.output.three.off()
         automationhat.relay.one.off()
 
-# Our default home page      
+
+# Our default homepage
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 # The next functions switch on the lights
 @app.route('/red')
@@ -64,15 +72,18 @@ def red():
     switchOnLight('one')
     return jsonify(True)
 
+
 @app.route('/yellow')
 def yellow():
     switchOnLight('two')
     return jsonify(True)
 
+
 @app.route('/green')
 def green():
     switchOnLight('three')
     return jsonify(True)
+
 
 # Sound the very loud buzzer (then switch it off again automatically)
 @app.route('/buzzer')
@@ -83,6 +94,7 @@ def buzzer():
         t.start()
     return jsonify(True)
 
+
 # D I S C O
 @app.route('/disco')
 def disco():
@@ -91,12 +103,14 @@ def disco():
         t.start()
     return jsonify(True)
 
+
 # Switch everything off
 @app.route('/off')
 def off():
     global topThreadId
     topThreadId = 0
     return jsonify(True)
+
 
 # Shutdown
 @app.route('/shutdown')
@@ -121,4 +135,3 @@ if isRPi:
 # Start the web server on port 5000
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-    
